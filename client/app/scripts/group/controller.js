@@ -13,34 +13,34 @@ angular.module('Group')
     $scope.pair = [];
   };
 
-  $scope.choose_employees_going = function(pairs) {
-    var sorted_employees = $scope.ids_sorted_by_nb_pairs(pairs);
+  $scope.chooseEmployeesGoing = function(pairs) {
+    var sorted_employees = $scope.idsSortedByNbPairs(pairs);
     var result = [];
     var remaining_pairs = pairs.slice();
     while (remaining_pairs.length) {
       var current_employee = sorted_employees.pop();
       result.push(current_employee);
-      remaining_pairs = $scope.remove_pairs_with_employee(
+      remaining_pairs = $scope.removePairsWithEmployee(
         remaining_pairs, current_employee
       );
     }
     return result;
   };
 
-  $scope.remove_pairs_with_employee = function(pairs, employee_id) {
+  $scope.removePairsWithEmployee = function(pairs, employee_id) {
     return pairs.filter(function (pair) {
       return pair[0] !== employee_id && pair[1] !== employee_id;
     });
   };
 
-  $scope.flatten_object = function(object) {
+  $scope.flattenObject = function(object) {
     return Object.keys(object).map(function (property) {
       return [property, object[property]];
     });
   };
 
-  $scope.ids_sorted_by_nb_pairs = function(pairs) {
-    return $scope.flatten_object($scope.nb_pairs_by_id(pairs))
+  $scope.idsSortedByNbPairs = function(pairs) {
+    return $scope.flattenObject($scope.nbPairsById(pairs))
       .sort(function (first_pair, second_pair) {
         return first_pair[1] - second_pair[1];
       }).map(function (mapping) {
@@ -48,7 +48,7 @@ angular.module('Group')
       });
   };
 
-  $scope.nb_pairs_by_id = function(pairs) {
+  $scope.nbPairsById = function(pairs) {
     var mapping = {};
     pairs.forEach(function (pair) {
       var first = pair[0];
@@ -63,7 +63,7 @@ angular.module('Group')
     var pairs = $scope.pairs.map(function (pair) {
       return [Number(pair[0]), Number(pair[1])];
     });
-    $scope.employeesGoing = $scope.choose_employees_going(pairs);
+    $scope.employeesGoing = $scope.chooseEmployeesGoing(pairs);
   };
 
 })

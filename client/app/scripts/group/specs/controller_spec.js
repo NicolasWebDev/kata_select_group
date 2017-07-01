@@ -43,35 +43,35 @@ describe('Controller: select group', function () {
     });
 
     it('chooses the employess that go to the beach', function() {
-      expect(scope.choose_employees_going(pairs1)).toEqual([2011]);
+      expect(scope.chooseEmployeesGoing(pairs1)).toEqual([2011]);
     });
 
     it('chooses the employess that go to the beach case 2', function() {
-      expect(scope.choose_employees_going(pairs2)).toEqual([2002, 1009]);
+      expect(scope.chooseEmployeesGoing(pairs2)).toEqual([2002, 1009]);
     });
 
     it('chooses the employess that go to the beach case 3', function() {
-      expect(scope.choose_employees_going(pairs3)).toEqual([1, 2, 7]);
+      expect(scope.chooseEmployeesGoing(pairs3)).toEqual([1, 2, 7]);
     });
 
     it('removes the pairs which contain the given employee', function() {
-      expect(scope.remove_pairs_with_employee(pairs1, 2011)).toEqual([]);
-      expect(scope.remove_pairs_with_employee(pairs1, 1009)).toEqual([[1017, 2011]]);
-      expect(scope.remove_pairs_with_employee(pairs1, 1017)).toEqual([[1009, 2011]]);
+      expect(scope.removePairsWithEmployee(pairs1, 2011)).toEqual([]);
+      expect(scope.removePairsWithEmployee(pairs1, 1009)).toEqual([[1017, 2011]]);
+      expect(scope.removePairsWithEmployee(pairs1, 1017)).toEqual([[1009, 2011]]);
     });
 
     it('returns the ids of the employees ordered by their number of pairs', function () {
-      expect(scope.ids_sorted_by_nb_pairs(pairs1)).toEqual([1009, 1017, 2011]);
+      expect(scope.idsSortedByNbPairs(pairs1)).toEqual([1009, 1017, 2011]);
     });
 
     it('returns the ids of the employees ordered by their number of pairs case 2', function () {
-      expect(scope.ids_sorted_by_nb_pairs(pairs2)).toEqual(
+      expect(scope.idsSortedByNbPairs(pairs2)).toEqual(
         [1002, 1003, 2000, 2001, 1009, 2002]
       );
     });
 
     it('returns a mapping of ids/number_of_pairs', function() {
-      expect(scope.nb_pairs_by_id(pairs1)).toEqual({
+      expect(scope.nbPairsById(pairs1)).toEqual({
         1009: 1,
         1017: 1,
         2011: 2,
@@ -79,7 +79,7 @@ describe('Controller: select group', function () {
     });
 
     it('returns a mapping of ids/number_of_pairs case 2', function() {
-      expect(scope.nb_pairs_by_id(pairs2)).toEqual({
+      expect(scope.nbPairsById(pairs2)).toEqual({
         1009: 2,
         1002: 1,
         1003: 1,
