@@ -8,10 +8,7 @@ angular.module('Group')
   $scope.pair = [];
   $scope.employeesGoing = [];
 
-  $scope.addPair = pair => {
-    $scope.pairs.push(pair);
-    $scope.pair = [];
-  };
+  $scope.addPair = pair => $scope.pairs.push(pair.splice(0));
 
   $scope.chooseEmployeesGoing = pairs => {
     var sorted_employees = $scope.idsSortedByNbPairs(pairs);
@@ -20,15 +17,14 @@ angular.module('Group')
     while (remaining_pairs.length) {
       var current_employee = sorted_employees.pop();
       result.push(current_employee);
-      remaining_pairs = $scope.removePairsWithEmployee(
-        remaining_pairs, current_employee
-      );
+      remaining_pairs = $scope.removePairsWithEmployee(remaining_pairs,
+        current_employee);
     }
     return result;
   };
 
   $scope.removePairsWithEmployee = (pairs, employee_id) =>
-    pairs.filter(pair => pair[0] !== employee_id && pair[1] !== employee_id);
+    pairs.filter(pair => pair.indexOf(employee_id) === -1);
 
   $scope.flattenObject = object =>
     Object.keys(object).map(property => [property, object[property]]);
@@ -38,16 +34,13 @@ angular.module('Group')
       .sort((first_pair, second_pair) => first_pair[1] - second_pair[1])
       .map(mapping => Number(mapping[0]));
 
-  $scope.nbPairsById = pairs => {
-    var mapping = {};
-    pairs.forEach(pair => {
-      var first = pair[0];
-      var second = pair[1];
-      mapping[first] = mapping[first] === undefined ? 1 : mapping[first] + 1;
-      mapping[second] = mapping[second] === undefined ? 1 : mapping[second] + 1;
-    });
-    return mapping;
-  };
+  $scope.flattenMatrix = matrix => [].concat.apply([], matrix);
+
+  $scope.nbPairsById = pairs => $scope.flattenMatrix(pairs)
+    .reduce((acc, employee_id) => {
+      acc[employee_id] = acc[employee_id] ? acc[employee_id] + 1 : 1;
+      return acc;
+    }, {});
 
   $scope.setEmployeesGoing = () => {
     var pairs = $scope.pairs.map(pair => [Number(pair[0]), Number(pair[1])]);
