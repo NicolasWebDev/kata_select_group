@@ -1,28 +1,32 @@
 <h3>Group</h3>
 <div>
-  <br><a href="#/" class="kataFont">Home</a>
-  <h2 ng-if="pairs.length">Current Pairs</h2>
-  <span ng-repeat="pair in pairs">
-      <table>
-          <thead>
-              <tr>
-                  <td>London Employee</td>
-                  <td>Stockholm Employee</td>
-              </tr>
-          </thead>
-          <tbody>
-              <tr>
-                  <td>{{ pair[0] }}</td>
-                  <td>{{ pair[1] }}</td>
-              </tr>
-          </tbody>
-      </table>
-  </span>
-  <form>
-      <label for="londong_employee">London Employee</label>
-      <input ng-model="pair[0]" name="london_employee" />
-      <label for="stockholm_employee">Stockholm Employee</label>
-      <input ng-model="pair[1]" name="stockholm_employee" />
-      <button ng-click="addPair(pair)">Add pair</button>
-  </form>
+    <br><a href="#/" class="kataFont">Home</a>
+    <div ng-if="pairs.length">
+        <h2>Current Pairs</h2>
+        <table>
+            <thead>
+                <tr>
+                    <td>London Employee</td>
+                    <td>Stockholm Employee</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="currentPair in pairs">
+                    <td>{{ currentPair[0] }}</td>
+                    <td>{{ currentPair[1] }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <form>
+        <label for="londong_employee">London Employee</label>
+        <input ng-model="pair[0]" name="london_employee" />
+        <label for="stockholm_employee">Stockholm Employee</label>
+        <input ng-model="pair[1]" name="stockholm_employee" />
+        <button ng-click="addPair(pair)">Add pair</button>
+    </form>
+    <br>
+    <button ng-if="pairs.length > 1" ng-click="setEmployeesGoing()">Choose the employees that will go to the beach!!!!!</button>
+    <div ng-if="employeesGoing.length">Employees that are going: {{ employeesGoing }}</div>
 </div>

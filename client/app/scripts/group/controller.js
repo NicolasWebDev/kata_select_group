@@ -6,6 +6,7 @@ angular.module('Group')
   $scope.controller_loaded = 'Group loaded!';
   $scope.pairs = [];
   $scope.pair = [];
+  $scope.employeesGoing = [];
 
   $scope.addPair = function(pair) {
     $scope.pairs.push(pair);
@@ -15,7 +16,7 @@ angular.module('Group')
   $scope.choose_employees_going = function(pairs) {
     var sorted_employees = $scope.ids_sorted_by_nb_pairs(pairs);
     var result = [];
-    var remaining_pairs = pairs;
+    var remaining_pairs = pairs.slice();
     while (remaining_pairs.length) {
       var current_employee = sorted_employees.pop();
       result.push(current_employee);
@@ -56,6 +57,13 @@ angular.module('Group')
       mapping[second] = mapping[second] === undefined ? 1 : mapping[second] + 1;
     });
     return mapping;
+  };
+
+  $scope.setEmployeesGoing = function() {
+    var pairs = $scope.pairs.map(function (pair) {
+      return [Number(pair[0]), Number(pair[1])];
+    });
+    $scope.employeesGoing = $scope.choose_employees_going(pairs);
   };
 
 })

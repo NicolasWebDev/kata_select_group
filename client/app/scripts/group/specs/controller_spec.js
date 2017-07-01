@@ -19,6 +19,18 @@ describe('Controller: select group', function () {
   }));
 
   describe('On instance', function () {
+    it('sets the employees that are going', function() {
+      scope.pairs = pairs1;
+      scope.setEmployeesGoing();
+      expect(scope.employeesGoing).toEqual([2011]);
+      scope.pairs = pairs2;
+      scope.setEmployeesGoing();
+      expect(scope.employeesGoing).toEqual([2002, 1009]);
+      scope.pairs = pairs3;
+      scope.setEmployeesGoing();
+      expect(scope.employeesGoing).toEqual([1, 2, 7]);
+    });
+
     it('adds a pair to the scope pairs', function() {
       expect(scope.pairs).toEqual([]);
       scope.addPair([1, 2]);
