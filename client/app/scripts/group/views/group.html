@@ -1,5 +1,28 @@
 <h3>Group</h3>
-<br>
 <div>
   <br><a href="#/" class="kataFont">Home</a>
+  <h2 ng-if="pairs.length">Current Pairs</h2>
+  <span ng-repeat="pair in pairs">
+      <table>
+          <thead>
+              <tr>
+                  <td>London Employee</td>
+                  <td>Stockholm Employee</td>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td>{{ pair[0] }}</td>
+                  <td>{{ pair[1] }}</td>
+              </tr>
+          </tbody>
+      </table>
+  </span>
+  <form>
+      <label for="londong_employee">London Employee</label>
+      <input ng-model="pair[0]" name="london_employee" />
+      <label for="stockholm_employee">Stockholm Employee</label>
+      <input ng-model="pair[1]" name="stockholm_employee" />
+      <button ng-click="addPair(pair)">Add pair</button>
+  </form>
 </div>
