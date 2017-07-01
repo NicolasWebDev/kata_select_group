@@ -1,19 +1,19 @@
 'use strict';
 
 angular.module('Group')
-.controller('group', function ($scope) {
+.controller('group', $scope => {
 
   $scope.controller_loaded = 'Group loaded!';
   $scope.pairs = [];
   $scope.pair = [];
   $scope.employeesGoing = [];
 
-  $scope.addPair = function(pair) {
+  $scope.addPair = pair => {
     $scope.pairs.push(pair);
     $scope.pair = [];
   };
 
-  $scope.chooseEmployeesGoing = function(pairs) {
+  $scope.chooseEmployeesGoing = pairs => {
     var sorted_employees = $scope.idsSortedByNbPairs(pairs);
     var result = [];
     var remaining_pairs = pairs.slice();
@@ -27,30 +27,20 @@ angular.module('Group')
     return result;
   };
 
-  $scope.removePairsWithEmployee = function(pairs, employee_id) {
-    return pairs.filter(function (pair) {
-      return pair[0] !== employee_id && pair[1] !== employee_id;
-    });
-  };
+  $scope.removePairsWithEmployee = (pairs, employee_id) =>
+    pairs.filter(pair => pair[0] !== employee_id && pair[1] !== employee_id);
 
-  $scope.flattenObject = function(object) {
-    return Object.keys(object).map(function (property) {
-      return [property, object[property]];
-    });
-  };
+  $scope.flattenObject = object =>
+    Object.keys(object).map(property => [property, object[property]]);
 
-  $scope.idsSortedByNbPairs = function(pairs) {
-    return $scope.flattenObject($scope.nbPairsById(pairs))
-      .sort(function (first_pair, second_pair) {
-        return first_pair[1] - second_pair[1];
-      }).map(function (mapping) {
-        return Number(mapping[0]);
-      });
-  };
+  $scope.idsSortedByNbPairs = pairs =>
+    $scope.flattenObject($scope.nbPairsById(pairs))
+      .sort((first_pair, second_pair) => first_pair[1] - second_pair[1])
+      .map(mapping => Number(mapping[0]));
 
-  $scope.nbPairsById = function(pairs) {
+  $scope.nbPairsById = pairs => {
     var mapping = {};
-    pairs.forEach(function (pair) {
+    pairs.forEach(pair => {
       var first = pair[0];
       var second = pair[1];
       mapping[first] = mapping[first] === undefined ? 1 : mapping[first] + 1;
@@ -59,15 +49,13 @@ angular.module('Group')
     return mapping;
   };
 
-  $scope.setEmployeesGoing = function() {
-    var pairs = $scope.pairs.map(function (pair) {
-      return [Number(pair[0]), Number(pair[1])];
-    });
+  $scope.setEmployeesGoing = () => {
+    var pairs = $scope.pairs.map(pair => [Number(pair[0]), Number(pair[1])]);
     $scope.employeesGoing = $scope.chooseEmployeesGoing(pairs);
   };
 
 })
-.config(function ($routeProvider) {
+.config($routeProvider => {
   $routeProvider
   .when('/group', {
     templateUrl: 'scripts/group/views/group.html',

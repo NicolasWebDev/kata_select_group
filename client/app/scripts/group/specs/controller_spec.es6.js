@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Controller: select group', function () {
+describe('Controller: select group', () => {
 
   beforeEach(module('Group'));
 
@@ -18,8 +18,8 @@ describe('Controller: select group', function () {
     pairs3 = [[1, 2], [1, 3], [1, 6], [1, 7], [4, 7], [2, 3], [2, 4]];
   }));
 
-  describe('On instance', function () {
-    it('sets the employees that are going', function() {
+  describe('On instance', () => {
+    it('sets the employees that are going', () => {
       scope.pairs = pairs1;
       scope.setEmployeesGoing();
       expect(scope.employeesGoing).toEqual([2011]);
@@ -31,46 +31,46 @@ describe('Controller: select group', function () {
       expect(scope.employeesGoing).toEqual([1, 2, 7]);
     });
 
-    it('adds a pair to the scope pairs', function() {
+    it('adds a pair to the scope pairs', () => {
       expect(scope.pairs).toEqual([]);
       scope.addPair([1, 2]);
       expect(scope.pairs).toEqual([[1, 2]]);
       scope.addPair([3, 4]);
       expect(scope.pairs).toEqual([[1, 2], [3, 4]]);
     });
-    it('should set "controller_loaded" variable in scope', function () {
+    it('should set "controller_loaded" variable in scope', () => {
       expect(scope.controller_loaded).toContain('loaded');
     });
 
-    it('chooses the employess that go to the beach', function() {
+    it('chooses the employess that go to the beach', () => {
       expect(scope.chooseEmployeesGoing(pairs1)).toEqual([2011]);
     });
 
-    it('chooses the employess that go to the beach case 2', function() {
+    it('chooses the employess that go to the beach case 2', () => {
       expect(scope.chooseEmployeesGoing(pairs2)).toEqual([2002, 1009]);
     });
 
-    it('chooses the employess that go to the beach case 3', function() {
+    it('chooses the employess that go to the beach case 3', () => {
       expect(scope.chooseEmployeesGoing(pairs3)).toEqual([1, 2, 7]);
     });
 
-    it('removes the pairs which contain the given employee', function() {
+    it('removes the pairs which contain the given employee', () => {
       expect(scope.removePairsWithEmployee(pairs1, 2011)).toEqual([]);
       expect(scope.removePairsWithEmployee(pairs1, 1009)).toEqual([[1017, 2011]]);
       expect(scope.removePairsWithEmployee(pairs1, 1017)).toEqual([[1009, 2011]]);
     });
 
-    it('returns the ids of the employees ordered by their number of pairs', function () {
+    it('returns the ids of the employees ordered by their number of pairs', () => {
       expect(scope.idsSortedByNbPairs(pairs1)).toEqual([1009, 1017, 2011]);
     });
 
-    it('returns the ids of the employees ordered by their number of pairs case 2', function () {
+    it('returns the ids of the employees ordered by their number of pairs case 2', () => {
       expect(scope.idsSortedByNbPairs(pairs2)).toEqual(
         [1002, 1003, 2000, 2001, 1009, 2002]
       );
     });
 
-    it('returns a mapping of ids/number_of_pairs', function() {
+    it('returns a mapping of ids/number_of_pairs', () => {
       expect(scope.nbPairsById(pairs1)).toEqual({
         1009: 1,
         1017: 1,
@@ -78,7 +78,7 @@ describe('Controller: select group', function () {
       });
     });
 
-    it('returns a mapping of ids/number_of_pairs case 2', function() {
+    it('returns a mapping of ids/number_of_pairs case 2', () => {
       expect(scope.nbPairsById(pairs2)).toEqual({
         1009: 2,
         1002: 1,
@@ -90,7 +90,7 @@ describe('Controller: select group', function () {
     });
   });
 
-  describe('when going to /group', function () {
+  describe('when going to /group', () => {
 
     var route, location, rootScope, httpBackend;
 
@@ -103,12 +103,12 @@ describe('Controller: select group', function () {
       httpBackend.when('GET', 'scripts/group/views/group.html').respond('<div></div>');
     }));
 
-    afterEach(function () {
+    afterEach(() => {
       httpBackend.verifyNoOutstandingExpectation();
       httpBackend.verifyNoOutstandingRequest();
     });
 
-    it('should use minesweeper.html and controller', function () {
+    it('should use minesweeper.html and controller', () => {
       expect(route.current).toBeUndefined();
 
       location.path('/group');
