@@ -5,6 +5,10 @@
 /client/node_modules/
 /server/node_modules/
 
+# Ignore babel output.
+/client/app/scripts/group/controller.js*
+/client/app/scripts/group/specs/controller_spec.js*
+
 .ruby-version
 Guardfile
 Gemfile*

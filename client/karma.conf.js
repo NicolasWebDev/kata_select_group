@@ -25,6 +25,7 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude : [
+      'app/scripts/**/*.es6.js'
     ],
 
     // level of logging

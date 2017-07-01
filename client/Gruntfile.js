@@ -18,6 +18,20 @@ module.exports = function (grunt) {
   } catch (e) {}
 
   grunt.initConfig({
+    babel: {
+      options: {
+        sourceMap: true,
+        presets: ['env']
+      },
+      dist: {
+        files: {
+          'app/scripts/group/controller.js':
+            'app/scripts/group/controller.es6.js',
+          'app/scripts/group/specs/controller_spec.js':
+            'app/scripts/group/specs/controller_spec.es6.js'
+        }
+      }
+    },
     yeoman: yeomanConfig,
     watch: {
       recess: {
@@ -76,6 +90,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     'clean:server',
+    'babel',
     'concurrent:test',
     'connect:test',
     'karma:dev'
@@ -83,6 +98,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', [
     'jshint',
+    'babel',
     'test'
   ]);
 };
