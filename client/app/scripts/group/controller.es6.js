@@ -8,7 +8,10 @@ angular.module('Group')
   $scope.pair = [];
   $scope.employeesGoing = [];
 
-  $scope.addPair = pair => $scope.pairs.push(pair.splice(0));
+  $scope.addPair = pair => {
+    $scope.pairs.push(pair.splice(0));
+    $scope.setEmployeesGoing();
+  };
 
   $scope.chooseEmployeesGoing = pairs => {
     var sortedEmployees = $scope.idsSortedByNbPairs(pairs);
@@ -43,9 +46,11 @@ angular.module('Group')
     }, {});
 
   $scope.setEmployeesGoing = () => {
-    $scope.employeesGoing = $scope.chooseEmployeesGoing(
-      $scope.pairs.map(pair => pair.map(elt => Number(elt)))
-    );
+    if ($scope.pairs.length > 1) {
+      $scope.employeesGoing = $scope.chooseEmployeesGoing(
+        $scope.pairs.map(pair => pair.map(elt => Number(elt)))
+      );
+    }
   };
 
 })

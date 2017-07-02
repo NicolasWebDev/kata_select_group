@@ -20,13 +20,12 @@
     </div>
     <br>
     <form>
-        <label for="londong_employee">London Employee</label>
+        <label for="london_employee">London Employee</label>
         <input ng-model="pair[0]" name="london_employee" />
         <label for="stockholm_employee">Stockholm Employee</label>
         <input ng-model="pair[1]" name="stockholm_employee" />
         <button ng-click="addPair(pair)">Add pair</button>
     </form>
     <br>
-    <button ng-if="pairs.length > 1" ng-click="setEmployeesGoing()">Choose the employees that will go to the beach!!!!!</button>
-    <div ng-if="employeesGoing.length">Employees that are going: {{ employeesGoing }}</div>
+    <div ng-if="employeesGoing.length">Employees that are going to the beach: {{ employeesGoing.join(',') }}</div>
 </div>
