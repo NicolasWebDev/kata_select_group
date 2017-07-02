@@ -11,40 +11,41 @@ angular.module('Group')
   $scope.addPair = pair => $scope.pairs.push(pair.splice(0));
 
   $scope.chooseEmployeesGoing = pairs => {
-    var sorted_employees = $scope.idsSortedByNbPairs(pairs);
+    var sortedEmployees = $scope.idsSortedByNbPairs(pairs);
     var result = [];
-    var remaining_pairs = pairs.slice();
-    while (remaining_pairs.length) {
-      var current_employee = sorted_employees.pop();
-      result.push(current_employee);
-      remaining_pairs = $scope.removePairsWithEmployee(remaining_pairs,
-        current_employee);
+    var remainingPairs = pairs.slice();
+    while (remainingPairs.length) {
+      var currentEmployee = sortedEmployees.pop();
+      result.push(currentEmployee);
+      remainingPairs = $scope.removePairsWithEmployee(remainingPairs,
+        currentEmployee);
     }
     return result;
   };
 
-  $scope.removePairsWithEmployee = (pairs, employee_id) =>
-    pairs.filter(pair => pair.indexOf(employee_id) === -1);
+  $scope.removePairsWithEmployee = (pairs, employeeId) =>
+    pairs.filter(pair => pair.indexOf(employeeId) === -1);
 
   $scope.flattenObject = object =>
     Object.keys(object).map(property => [property, object[property]]);
 
   $scope.idsSortedByNbPairs = pairs =>
     $scope.flattenObject($scope.nbPairsById(pairs))
-      .sort((first_pair, second_pair) => first_pair[1] - second_pair[1])
+      .sort((firstMap, secondMap) => firstMap[1] - secondMap[1])
       .map(mapping => Number(mapping[0]));
 
   $scope.flattenMatrix = matrix => [].concat.apply([], matrix);
 
   $scope.nbPairsById = pairs => $scope.flattenMatrix(pairs)
-    .reduce((acc, employee_id) => {
-      acc[employee_id] = acc[employee_id] ? acc[employee_id] + 1 : 1;
+    .reduce((acc, employeeId) => {
+      acc[employeeId] = acc[employeeId] ? acc[employeeId] + 1 : 1;
       return acc;
     }, {});
 
   $scope.setEmployeesGoing = () => {
-    var pairs = $scope.pairs.map(pair => [Number(pair[0]), Number(pair[1])]);
-    $scope.employeesGoing = $scope.chooseEmployeesGoing(pairs);
+    $scope.employeesGoing = $scope.chooseEmployeesGoing(
+      $scope.pairs.map(pair => pair.map(elt => Number(elt)))
+    );
   };
 
 })
